@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "partial-keepinv",
+	"version": "${version}",
+	"name": "partial-keepinv",
+	"description": "Enabled a partial keepInventory mode, where some items are kept on death, and some dropped.",
+	"authors": [
+		"coryd"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/partial-keepinv/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"partialkeepinv.PartialKeepInv"
+		],
+		"fabric-datagen": [
+			"partialkeepinv.PartialkeepinvDataGenerator"
+		]
+	},
+	"mixins": [
+		"partial-keepinv.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
