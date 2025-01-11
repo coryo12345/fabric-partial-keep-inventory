@@ -18,6 +18,10 @@ public class PartialKeepInv implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Initializing PartialKeepInventory");
+		this.registerCommands();
+	}
+
+	private void registerCommands() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			dispatcher.register(CommandManager.literal("partialkeepinv")
 					.requires(source -> source.hasPermissionLevel(2))
