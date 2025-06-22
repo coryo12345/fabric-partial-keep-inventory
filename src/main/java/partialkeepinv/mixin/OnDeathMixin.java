@@ -11,11 +11,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -62,9 +64,16 @@ public class OnDeathMixin {
 				item.setCount(0);
 			}
 		};
-		inv.main.forEach(handleItem);
-		inv.armor.forEach(handleItem);
-		inv.offHand.forEach(handleItem);
+		// main inventory
+		inv.getMainStacks().forEach(handleItem);
+
+		// offhand
+		handleItem.accept(inv.getStack(PlayerInventory.OFF_HAND_SLOT));
+
+		// armor
+		PlayerInventory.EQUIPMENT_SLOTS.keySet().forEach(slot -> {
+			handleItem.accept(inv.getStack(slot));
+		});
 		return items;
 	}
 
